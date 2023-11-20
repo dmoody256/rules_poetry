@@ -30,15 +30,18 @@ def _get_python_interpreter_attr(rctx):
 def _resolve_python_interpreter(rctx):
     python_interpreter = _get_python_interpreter_attr(rctx)
 
-    if rctx.attr.python_interpreter_target:
+    if "win" in rctx.os.name:
+        interpreter_target = rctx.attr.python_interpreter_target_win
+    elif "mac" in rctx.os.name:
+        interpreter_target = rctx.attr.python_interpreter_target_mac
+    else:
+        interpreter_target = rctx.attr.python_interpreter_target
+    
+    if interpreter_target:
         if rctx.attr.python_interpreter:
-            fail("python_interpreter_target and python_interpreter incompatible")
-
-        
-
-        target = rctx.attr.python_interpreter_target
-        print(target)
-        python_interpreter = rctx.path(target)
+            fail("interpreter_target and python_interpreter incompatible")
+    
+        python_interpreter = rctx.path(interpreter_target)
 
         return python_interpreter
 
@@ -351,6 +354,14 @@ poetry = repository_rule(
             doc = "The command to run the Python interpreter used during repository setup",
         ),
         "python_interpreter_target": attr.label(
+            mandatory = False,
+            doc = "The target of the Python interpreter used during repository setup",
+        ),
+        "python_interpreter_target_win": attr.label(
+            mandatory = False,
+            doc = "The target of the Python interpreter used during repository setup",
+        ),
+        "python_interpreter_target_mac": attr.label(
             mandatory = False,
             doc = "The target of the Python interpreter used during repository setup",
         ),
