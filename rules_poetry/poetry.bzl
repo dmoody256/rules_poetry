@@ -34,7 +34,10 @@ def _resolve_python_interpreter(rctx):
         if rctx.attr.python_interpreter:
             fail("python_interpreter_target and python_interpreter incompatible")
 
+        
+
         target = rctx.attr.python_interpreter_target
+        print(target)
         python_interpreter = rctx.path(target)
 
         return python_interpreter
