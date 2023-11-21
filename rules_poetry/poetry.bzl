@@ -235,7 +235,7 @@ def _impl(repository_ctx):
         
         version_select = '"' + package['version'] + '"'
         if name in toml_markers:
-            print(name +": " + toml_markers[name])
+            print(name +": " + str(toml_markers[name]))
             version_select = "select({\n"
             for version in toml_markers[name]:
                 for platform in toml_markers[name][version]:
