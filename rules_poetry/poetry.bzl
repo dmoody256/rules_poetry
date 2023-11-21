@@ -14,9 +14,9 @@ SUPPORTED_PLATFORMS = [
     'linux!ppc64le',
     'linux!aarch64',
     'linux!x86_64',
-    'macos!aarch64',
-    'macos!x86_64',
-    'windows!x86_64'
+    'darwin!aarch64',
+    'darwin!x86_64',
+    'win32!x86_64'
 ]
 
 def _clean_name(name):
